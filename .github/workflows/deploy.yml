@@ -71,6 +71,12 @@ jobs:
             mkdir -p "$TARGET/wp-content/themes"
             rsync -a --delete "$STAGING/wp-content/themes/atk-ved-theme/" "$THEME_TARGET/"
 
+            if [ -f "$STAGING/scripts/robots.txt" ]; then
+              cp "$STAGING/scripts/robots.txt" "$TARGET/robots.txt"
+              chown atkvedru:atkvedru "$TARGET/robots.txt"
+              echo "Updated $TARGET/robots.txt"
+            fi
+
             bash "$STAGING/scripts/verify-deploy-bundle.sh" "$TARGET" "production" || {
               BACKUP_ROOT="/tmp/atk-ved-deploy-backups"
               LATEST="$(ls -dt "$BACKUP_ROOT"/*/ 2>/dev/null | head -1 || true)"
