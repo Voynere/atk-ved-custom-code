@@ -1,0 +1,68 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.tmp_*
+
+# Environment-specific / sensitive files
+wp-config.php
+.htaccess
+error_log
+
+# Runtime logs / archives
+logs/
+logs_*/
+*.log
+*.sql
+*.gz
+*.zip
+
+# WordPress runtime and generated content
+.tmb/
+wp-content/uploads/
+wp-content/cache/
+wp-content/languages/
+wp-content/upgrade/
+wp-content/upgrade-temp-backup/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/debug.log
+
+# One-off DB tools (do not commit to the repo)
+adminer-*.php
+
+# Generated / site verification files
+llms.txt
+llms-full.txt
+mailru-domain*.html
+yandex_*.html
+
+# Themes: ignore all by default, keep only the custom theme
+wp-content/themes/*
+!wp-content/themes/index.php
+!wp-content/themes/atk-ved-theme/
+
+# Plugins: third-party only on this site — not tracked in git
+wp-content/plugins/
+
+# WordPress core (not in repo; protects server from accidental git clean)
+/index.php
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/xmlrpc.php
+/readme.html
+/license.txt
+/.maintenance
+
+# Site root assets and misc (managed on server, not in custom-code repo)
+/android-chrome-*.png
+/apple-touch-icon.png
+/favicon*
+/robots.txt
+/blogs/
+/tmp/
+
+# PHPUnit / tooling
+.phpunit.cache
