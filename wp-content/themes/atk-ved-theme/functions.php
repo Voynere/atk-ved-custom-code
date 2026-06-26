@@ -3,6 +3,24 @@
  * ATK-VED Theme Functions
  */
 
+/**
+ * Canonical public site URL for SEO outputs (robots, schema).
+ * Uses home_url when it already points at atk-ved.ru; otherwise falls back
+ * to production domain when WP Site URL is misconfigured (e.g. https://atk-ved).
+ */
+function atk_ved_canonical_site_url($path = '') {
+    $home = home_url('/');
+    $base = preg_match('#^https?://[^/]*atk-ved\.ru#i', $home)
+        ? untrailingslashit(home_url())
+        : 'https://atk-ved.ru';
+
+    if ($path === '') {
+        return $base;
+    }
+
+    return trailingslashit($base) . ltrim($path, '/');
+}
+
 // Поддержка темы
 add_action('after_setup_theme', 'atk_ved_setup');
 function atk_ved_setup() {
@@ -386,8 +404,8 @@ function custom_sitemap_render() {
 // Обновляем robots.txt
 add_filter('robots_txt', 'custom_robots_txt', 10, 2);
 function custom_robots_txt($output, $public) {
-    $output = preg_replace('/Sitemap:.*wp-sitemap\.xml.*\n?/i', '', $output);
-    $output .= "\nSitemap: " . home_url('/sitemap.xml') . "\n";
+    $output = preg_replace('/Sitemap:.*\n?/i', '', $output);
+    $output .= "\nSitemap: " . atk_ved_canonical_site_url('sitemap.xml') . "\n";
     return $output;
 }
 
@@ -539,7 +557,27 @@ function atk_ved_customize_preview_js() {
 
 /**
  * ========== МИКРОРАЗМЕТКА SCHEMA.ORG ДЛЯ ВСЕХ СТРАНИЦ ==========
+ *
+ * Organization, WebSite, BreadcrumbList — тема (Yoast-дубли отключены ниже).
  */
+
+add_filter('wpseo_schema_graph_pieces', 'atk_ved_disable_yoast_duplicate_schema', 11, 2);
+function atk_ved_disable_yoast_duplicate_schema($pieces, $context) {
+    $remove = array(
+        'Yoast\WP\SEO\Generators\Schema\Organization',
+        'Yoast\WP\SEO\Generators\Schema\WebSite',
+        'Yoast\WP\SEO\Generators\Schema\Breadcrumb',
+    );
+
+    return array_values(array_filter($pieces, function ($piece) use ($remove) {
+        foreach ($remove as $class) {
+            if (class_exists($class) && $piece instanceof $class) {
+                return false;
+            }
+        }
+        return true;
+    }));
+}
 
 // Главный хук для добавления разметки
 add_action('wp_head', 'atk_ved_add_schema_markup', 5);
@@ -587,8 +625,9 @@ function atk_ved_schema_organization() {
     $organization = array(
         '@context' => 'https://schema.org',
         '@type' => 'Organization',
+        '@id' => atk_ved_canonical_site_url('#organization'),
         'name' => $site_name,
-        'url' => home_url(),
+        'url' => atk_ved_canonical_site_url(),
         'logo' => $logo_url,
         'image' => $image_url,
         'description' => get_bloginfo('description'),
@@ -615,14 +654,10 @@ function atk_ved_schema_website() {
     $website = array(
         '@context' => 'https://schema.org',
         '@type' => 'WebSite',
-        'url' => home_url(),
+        'url' => atk_ved_canonical_site_url(),
         'name' => get_bloginfo('name'),
         'description' => get_bloginfo('description'),
-        'potentialAction' => array(
-            '@type' => 'SearchAction',
-            'target' => home_url('/?s={search_term_string}'),
-            'query-input' => 'required name=search_term_string'
-        )
+        'publisher' => array('@id' => atk_ved_canonical_site_url('#organization')),
     );
     
     echo '<script type="application/ld+json">' . json_encode($website, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
@@ -636,7 +671,7 @@ function atk_ved_schema_local_business() {
         '@context' => 'https://schema.org',
         '@type' => 'LocalBusiness',
         'name' => get_bloginfo('name'),
-        'url' => home_url(),
+        'url' => atk_ved_canonical_site_url(),
         'logo' => $logo_url,
         'image' => $logo_url,
         'description' => get_bloginfo('description'),
@@ -665,7 +700,7 @@ function atk_ved_schema_breadcrumbs() {
         '@type' => 'ListItem',
         'position' => $position,
         'name' => 'Главная',
-        'item' => home_url()
+        'item' => atk_ved_canonical_site_url()
     );
     $position++;
     

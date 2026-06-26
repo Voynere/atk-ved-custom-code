@@ -47,21 +47,19 @@ get_header();
                 </div>
             </div>
 
-            <!-- Заголовок для десктопа -->
-            <div class="hero__title-wrapper hero__title-desktop">
+            <div class="hero__title-wrapper">
                 <h1 class="hero__title">
-                    <span class="hero__title-line1">Товары</span>
-                    <span class="hero__title-line2">для маркетплейсов</span>
-                    <span class="hero__title-line3">из Китая <span>оптом</span></span>
-                </h1>
-            </div>
-
-            <!-- Заголовок для мобильных -->
-            <div class="hero__title-wrapper hero__title-mobile">
-                <h1 class="hero__title">
-                    <span class="hero__title-line1">Товары для</span>
-                    <span class="hero__title-line2">маркетплейсов</span>
-                    <span class="hero__title-line3">из Китая <span>оптом</span></span>
+                    <span class="sr-only">Товары для маркетплейсов из Китая оптом</span>
+                    <span class="hero__title-desktop" aria-hidden="true">
+                        <span class="hero__title-line1">Товары</span>
+                        <span class="hero__title-line2">для маркетплейсов</span>
+                        <span class="hero__title-line3">из Китая <span>оптом</span></span>
+                    </span>
+                    <span class="hero__title-mobile" aria-hidden="true">
+                        <span class="hero__title-line1">Товары для</span>
+                        <span class="hero__title-line2">маркетплейсов</span>
+                        <span class="hero__title-line3">из Китая <span>оптом</span></span>
+                    </span>
                 </h1>
             </div>
 
