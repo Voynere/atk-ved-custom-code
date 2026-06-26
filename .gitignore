@@ -66,3 +66,6 @@ wp-content/plugins/
 
 # PHPUnit / tooling
 .phpunit.cache
+
+# Local SEO / RAG workspace (not for GitHub)
+seov/
