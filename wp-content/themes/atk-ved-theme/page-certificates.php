@@ -103,6 +103,18 @@ get_header();
                 </div>
             </div>
 
+            <!-- ========== ДОКУМЕНТЫ ДЛЯ МАРКЕТПЛЕЙСОВ ========== -->
+            <div class="certificates-page__marketplaces">
+                <h2 class="certificates-page__section-title">Документы для Wildberries</h2>
+                <p class="certificates-page__description">Для выхода на Wildberries нужен полный пакет разрешительных документов: декларация или сертификат соответствия, отказное письмо (если сертификация не обязательна), данные о производителе. Для маркируемых категорий — коды «Честный знак». Мы оформляем документы под требования WB и сопровождаем при модерации карточки.</p>
+
+                <h2 class="certificates-page__section-title">Документы для Ozon</h2>
+                <p class="certificates-page__description">Ozon проверяет разрешительные документы по категории товара: декларацию, сертификат ТР ТС, СГР, пожарный сертификат или отказное письмо. Также важны корректные сведения о стране происхождения и маркировка для обязательных категорий. Помогаем собрать пакет до загрузки товара на площадку.</p>
+
+                <h2 class="certificates-page__section-title">Сертификат ТР ТС</h2>
+                <p class="certificates-page__description">Сертификат соответствия техническим регламентам Таможенного союза обязателен для детских товаров, косметики, обуви, части электроники и других категорий. Если товар не входит в перечень обязательной сертификации, оформляем декларацию соответствия или отказное письмо для маркетплейса.</p>
+            </div>
+
             <!-- ========== ДЛЯ КАКИХ ТОВАРОВ НУЖНЫ ДОКУМЕНТЫ ========== -->
             <div class="certificates-page__products">
                 <h2 class="certificates-page__section-title">Какие товары требуют сертификации</h2>
@@ -195,6 +207,12 @@ get_header();
             </div>
         </div>
     </section>
+
+    <?php
+    $faq_items = atk_ved_get_page_faq_items('predostavlenie-sertifikatov-i-dokumentov');
+    $faq_title = 'Вопросы о сертификации и документах';
+    include locate_template('template-parts/faq-accordion.php');
+    ?>
 
 </main>
 

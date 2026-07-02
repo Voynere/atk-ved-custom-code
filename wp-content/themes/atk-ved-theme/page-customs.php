@@ -164,6 +164,12 @@ get_header();
         </div>
     </section>
 
+    <?php
+    $faq_items = atk_ved_get_page_faq_items('tamozhennoe-oformlenie');
+    $faq_title = 'Вопросы о таможенном оформлении';
+    include locate_template('template-parts/faq-accordion.php');
+    ?>
+
 </main>
 
 <?php get_footer(); ?>

@@ -192,6 +192,12 @@ get_header();
         </div>
     </section>
 
+    <?php
+    $faq_items = atk_ved_get_page_faq_items('registraciya-tovarov-v-sisteme-chestnyy-znak');
+    $faq_title = 'Вопросы о маркировке «Честный знак»';
+    include locate_template('template-parts/faq-accordion.php');
+    ?>
+
 </main>
 
 <?php get_footer(); ?>

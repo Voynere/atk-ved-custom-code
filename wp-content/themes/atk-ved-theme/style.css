@@ -1398,6 +1398,23 @@ a {
     gap: var(--spacing-md);
 }
 
+.faq--page {
+    padding-top: 0;
+}
+
+.faq--page .faq__title {
+    font-size: 36px;
+    margin-bottom: var(--spacing-xl);
+}
+
+.faq__questions-column--full {
+    flex: none;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
 .faq-item {
     display: flex;
     flex-direction: column;
